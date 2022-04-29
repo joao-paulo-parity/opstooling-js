@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Prepare release tag
+      - name: Prepare release
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions"
@@ -38,8 +38,9 @@ jobs:
           git commit -m v${{ github.event.inputs.version }}
           git tag v${{ github.event.inputs.version }}
 
-      - name: Push release tag
+      - name: Publish release
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: v${{ github.event.inputs.version }}
+          tags: true
